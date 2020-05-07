@@ -38,14 +38,14 @@ let d = 20 / 5; //4
     if(a) {
         console.log('joepie ik ben true');
 
-} else if(c) {
+} else if (c) {
     console.log('jammer ik niet');
-
+}
     else {
         console.log('helemaal niet');
     }
 
-}
+
 
 
 if( true && true) {
