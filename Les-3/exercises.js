@@ -1,36 +1,53 @@
 // Return the largest element of array (all elements will be numbers), e.g. [1,2,3] → 3
-let anArray = [1, 3, 2, 5];
-function getLargestItemInArray() {
-        let largestVal = Math.max(...anArray);
-        return largestVal;    
-}
+// let anArray = [1, 2, 3];
+// function getLargestItemInArray() {
+//         let largestVal = Math.max(...anArray);
+//         return largestVal;    
+// }
+let array = [1,2,3]
+      function  getLargestItemInArray() {
+        let largestVal = array[0];
+        for ( let i = 0; i < array.length; i++){
+              if( array[i] > largestVal   ) {
+                  largestVal = array[i]
+                                            }
+                                               }
+ return largestVal;
+                                        }
 
-console.log(getLargestItemInArray());
 
 // Reverse order of array, e.g. [1,2,3] → [3,2,1]
-let anotherArray = [1, 3, 2, 5,8];
+let anotherArray = [1, 2, 3];
 
 function reverseArray() {
-  let reverseArray = anotherArray.reverse();
-  return reverseArray;
+  let reversed = anotherArray.reverse();
+  return reversed;
 }
-console.log(reverseArray());
+// console.log(reverseArray());
 
 // Make a sum of all elements, e.g. [1,2,3] → 6
 let thirdArray = [1, 3, 2];
-let sum = 0;
+
 function arraySum() {
-  for (let i=1; i <= thirdArray.length; i++) {
-      let i = thirdArray[i];
-      sum = sum + i;
-      return sum;
-  }
+  let sum = 0;
+  for (let i=0; i < thirdArray.length; i++) {
+      sum = sum + thirdArray[i];
+        }
+  return sum;
 }
-document.write(arraySum());
+// console.log(arraySum());
 
 // Make a string of the first letter of each element of array, e.g. ['Dog', 'cat', 'snake'] → 'Dcs'
-function stringOfFirstLetters(anArray) {
+let anArray = ['Dog', 'cat', 'snake'];
+function stringOfFirstLetters() {
 
+  let x = anArray[0].substring(0,1);
+  for ( let i = 1; i < anArray.length; i++)   
+{
+ x += anArray[i].substring(0,1)
+
+}
+return x
 }
 
 // Combines two arrays by alternatingly taking elements, e.g. ['a','b','c'], [1,2,3] → ['a',1,'b',2,'c',3].
