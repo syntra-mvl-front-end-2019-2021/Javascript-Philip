@@ -60,21 +60,14 @@ function combineArrays(array1, array2) {
   let comArr = [];
   let length = array1.length + array2.length;
   
-          if( array1.length < array2.length ) {
-            for (let i = 0; i < array2.length; i++ ) {
-    comArr.push( array1[i] , array2[i] )
-  }
-          }
-  
-          else if( array1.length > array2.length) {
-            for (let i = 0; i < array1.length; i++ ) {
-    comArr.push( array1[i] , array2[i] )
-  }
-          }
-    else {
-        for (let i = 0; i < array1.length; i++ ) {
-    comArr.push( array1[i] , array2[i] )
-  }
+      for (let i = 0; i < length; i++) {
+        if (array1[i] !== undefined) {
+            comArr.push(array1[i]);
+        }
+
+        if (array2[i] !== undefined) {
+            comArr.push(array2[i]);
+        }
     }
   
   return comArr;
@@ -99,7 +92,29 @@ return numArr;
 // console.log(aString.split(' '));
 
 function translateToPigLating(aString) {
+      
+  let wordArr = aString.split(' ');
+  let newArr = [];
 
+  for ( let i in wordArr) {
+    // let word = wordArr[i]
+    let firstLet = wordArr[i].charAt(0);
+    let otherLet = wordArr[i].substring(1);
+
+    if (firstLet === firstLet.toUpperCase()) {
+      otherLet = otherLet.substring(0,1).toUpperCase()
+      + otherLet.substring(1);
+
+      firstLet = firstLet.toLowercase();
+    }
+
+  let newWord = otherLet + firstLet + 'ay';
+  newArr.push(newWord);
+
+  }
+
+// return newArr;
+return newArr.join(' ');
 }
 
 // Converts English text to Morse code.
@@ -124,7 +139,120 @@ function translateToPigLating(aString) {
 //         break;    
 // }
 
-function translateToMorse(aString) {
+function letterToMorse(letter) {
+  let morseLetter ='';
+
+  switch (letter.toLowerCase()) {
+    
+    case 'a':
+            morseLetter = '*_';
+            break; 
+    case 'b':
+            morseLetter = '_***';
+            break; 
+     case 'c':
+            morseLetter = '_*_*';
+            break; 
+     case 'd':
+            morseLetter = '_**';
+            break; 
+     case 'e':
+            morseLetter = '*';
+            break; 
+     case 'f':
+            morseLetter = '**_*';
+            break; 
+     case 'g':
+            morseLetter = '__*';
+            break; 
+     case 'h':
+            morseLetter = '****';
+            break; 
+     case 'i':
+            morseLetter = '**';
+            break; 
+     case 'j':
+            morseLetter = '*___';
+            break; 
+     case 'k':
+            morseLetter = '_*_';
+            break; 
+     case 'l':
+            morseLetter = '*_**';
+            break; 
+     case 'm':
+            morseLetter = '__';
+            break; 
+     case 'n':
+            morseLetter = '_*';
+            break; 
+     case 'o':
+            morseLetter = '___';
+            break; 
+     case 'p':
+            morseLetter = '*__*';
+            break; 
+     case 'q':
+            morseLetter = '__*_';
+            break; 
+     case 'r':
+            morseLetter = '*_*';
+            break; 
+     case 's':
+            morseLetter = '***';
+            break; 
+     case 't':
+            morseLetter = '_';
+            break; 
+     case 'u':
+            morseLetter = '**_';
+            break; 
+     case 'v':
+            morseLetter = '***_';
+            break; 
+     case 'w':
+            morseLetter = '*__';
+            break; 
+     case 'x':
+            morseLetter = '_**_';
+            break; 
+     case 'y':
+            morseLetter = '_*__';
+            break; 
+    case 'z':
+            morseLetter = '__**';
+            break;
+            
+}
+
+return morseLetter;
+
+}
+
+// let string = prompt('geef woord');
+let string = 'geef woord';
+
+function translateToMorse() {
+
+  let stringArr = string.split('');
+  let resultArr = [];
+
+  for (let i in stringArr) {
+    let curLetter = stringArr[i];
+
+    if (curLetter === ' ') {
+
+        resultArr.push(' ');
+
+    }
+    else {
+      resultArr.push(letterToMorse(curLetter) + '|');
+    }
+      
+
+  }
+
+  return resultArr.join('');
 
 }
 
