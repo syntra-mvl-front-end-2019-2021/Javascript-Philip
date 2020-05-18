@@ -1,7 +1,22 @@
 // Count the number of occurrences of a word in a sentence in,
 // e.g. 'Ik heb honger, heb jij ook honger.', 'heb' → 2
-function wordCount(sentence, word) {}
 
+function wordCount(sentence, word) {
+    let sentenceArr = sentence.split(' ');
+    let result = 0;
+    
+    for (let i in sentenceArr) {
+     
+      if( word === sentenceArr[i]) {
+        result++;
+    
+      }
+    
+    
+    }
+    return result;
+    
+    }
 // Calculate scrabbleScore of a word
 // See letter values here: https://www.playmeo.com/face-value-scrabble-tiles/
 // letterMultipliers, an array of objects like this:
