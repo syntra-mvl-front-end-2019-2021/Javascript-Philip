@@ -7,7 +7,7 @@ function wordCount(sentence, word) {
     
     for (let i in sentenceArr) {
      
-      if( word === sentenceArr[i]) {
+      if( word === sentenceArr[i].toLowerCase()) {
         result++;
     
       }
@@ -30,7 +30,31 @@ function scrabbleScoreCalculator(word, letterMultipliers, wordMultiplier) {}
 // Determine if a sentence is a pangram
 // https://en.wikipedia.org/wiki/Pangram
 // e.g. 'The quick brown fox jumps over the lazy dog' → true
-function isPangram(sentence) {}
+
+function isPangram(sentence) {
+  
+  let letterArr = sentence.split('');
+  let alphabet = 'abcdefghijklmnopqrstuvwxyz';
+  let alphabetArr = alphabet.split('');
+
+for (let i in letterArr) {
+
+  let lettersInArray = letterArr[i].toLowerCase();
+
+for ( let j in alphabetArr) {
+
+      let lettersInAlphabet = alphabetArr[j];
+
+        if( (lettersInArray === lettersInAlphabet) && (letterArr.length > alphabetArr.length)) {
+            return true;
+                }
+        else { return false;}
+}
+
+}
+
+
+}
 
 // Given a word and a list of possible anagrams,
 // return an array with all the correct anagrams.
