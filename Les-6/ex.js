@@ -30,12 +30,16 @@ function printProduct (event) {
 }
 
 
+
+
 addInputButton.addEventListener('click', addInput);
 
 
 function addInput (event) {
 
-
+    let number = 2;
+    let count = document.getElementById('number-count-container');
+    count.innerText = ++number;
 
 let newFieldDiv = document.createElement('div');
 let newControlInputDiv = document.createElement('div');
@@ -65,6 +69,7 @@ newControlDeleteDiv.setAttribute('class', 'control');
 newControlDeleteDiv.setAttribute('id', 'remove-button');
 newADelete.setAttribute('class', 'button is-danger delete-number-input');
 
+
 let clicked = addInputButton.addEventListener('click', addInput);
 
 
@@ -83,8 +88,7 @@ if ( !clicked) {
     
 }
 
+
 }
-
-
 
 
