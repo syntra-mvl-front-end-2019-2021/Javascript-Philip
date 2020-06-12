@@ -4,29 +4,39 @@ let inputText = document.getElementById('user-input')
 let letterInput = document.getElementById('letter-count')
 let wordInput = document.getElementById('word-count')
 
+
+
+// function printText() {
+//     resultText.innerText = inputText.value;
+//     countWords();
+//     countLetters();
+
+// }
+
+
 function printText() {
     resultText.innerText = inputText.value;
-    printWords();
-    printLetters();
-
+    countWords();
+    countLetters();
+    
 }
 
 submitButton.addEventListener('click', printText)
 
 function realtime() {
     resultText.innerText = inputText.value;
-    printWords();
-    printLetters();
-
+    countWords();
+    countLetters();
+    wordScrambler()
 }
 
 inputText.addEventListener('input', realtime);
 
 
-let string = inputText.value;
+// let string = inputText.value;
 
 
-function printLetters() {
+function countLetters() {
     let string = inputText.value;
     let letters = string.split('');
     for ( let letter in letters) {
@@ -34,7 +44,7 @@ function printLetters() {
     }
 }
 
-function printWords() {
+function countWords() {
     let string = inputText.value;
     let words = string.split(' ');
     for ( let j = 0; j < words.length; j++) {
@@ -43,7 +53,30 @@ function printWords() {
 }
 
 
+function wordScrambler() {
+    let string = inputText.value;
+    let wordArr = string.split(' ');
+    let newString = [];
+    
+    
+    
+    for ( let random in wordArr) {
+        let random = Math.floor(Math.random() * wordArr.length);
+        let randomWord = wordArr[random];
+        newString.push(randomWord);
+    }
 
+
+    
+
+    resultText.innerText = newString.join(' ');
+
+
+    // console.log(wordArr[random]);
+    // console.log(randomWord);
+    // console.log(newString.push(randomWord));
+
+}
 
 
 
