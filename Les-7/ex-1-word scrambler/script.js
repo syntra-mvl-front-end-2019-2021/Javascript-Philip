@@ -4,15 +4,7 @@ let inputText = document.getElementById('user-input')
 let letterInput = document.getElementById('letter-count')
 let wordInput = document.getElementById('word-count')
 
-
-
-// function printText() {
-//     resultText.innerText = inputText.value;
-//     countWords();
-//     countLetters();
-
-// }
-
+let string = inputText.value;
 
 function printText() {
     resultText.innerText = inputText.value;
@@ -33,11 +25,10 @@ function realtime() {
 inputText.addEventListener('input', realtime);
 
 
-// let string = inputText.value;
 
 
 function countLetters() {
-    let string = inputText.value;
+    // let string = inputText.value;
     let letters = string.split('');
     for ( let letter in letters) {
         letterInput.innerText = letters.length;
@@ -45,7 +36,7 @@ function countLetters() {
 }
 
 function countWords() {
-    let string = inputText.value;
+    // let string = inputText.value;
     let words = string.split(' ');
     for ( let j = 0; j < words.length; j++) {
         wordInput.innerText = words.length;
@@ -54,7 +45,7 @@ function countWords() {
 
 
 function wordScrambler() {
-    let string = inputText.value;
+    // let string = inputText.value;
     let wordArr = string.split(' ');
     let newString = [];
     
@@ -69,7 +60,7 @@ function wordScrambler() {
 
     
 
-    resultText.innerText = newString.join(' ');
+    resultText.innerText = inputText.value + newString.join(' ');
 
 
     // console.log(wordArr[random]);
