@@ -91,6 +91,7 @@ window.addEventListener('load', initGame)
 
   let randomWord = randomWords[Math.floor(Math.random()*randomWords.length)].toUpperCase();
   let randomWordArr = randomWord.split('');
+  let containerLetters = solutionContainer.children;
   
  function addLetters() {
     // let randomWord = randomWords[Math.floor(Math.random()*randomWords.length)];
@@ -119,25 +120,27 @@ window.addEventListener('load', initGame)
     // console.log(clickedLett);
 
     let randomWordArrLett = randomWord[i];
+    
     for (randomWordArrLett of randomWord) {
 
       if( clickedLett === randomWordArrLett) {
         
         letter.target.classList.add('success');
-        
-        console.log(divLett);
-        console.log(randomWordArrLett);
-        console.log(clickedLett);
-        console.log(solutionContainer);
-        console.log(solutionContainer.length);
 
+        let index = randomWordArr.indexOf(clickedLett);
+        console.log(index);
+        let indexContainer = containerLetters[index];
+        console.log(indexContainer);
+        indexContainer.innerText = clickedLett.value;
+        console.log(solutionContainer);
         
-        }
-        
-      
+      }
       else {
         letter.target.classList.add('failed');
+      
       }
-    }
-        
+    
+      
   }
+}
+
