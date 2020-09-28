@@ -12,8 +12,6 @@ function isBrainFuckInstruction(char) {
  return isBrainFuckInstr.includes(char);
 }
 
-
-
 function cleanProgram(program) {
     let cleanProg = program.split('');
     return cleanProg.filter(isBrainFuckInstruction);
@@ -42,11 +40,11 @@ function interpretBrainFuck ( program, inputArray, arrayLength) {
                 array[pointer]--;
                 instrIndex++;
                 break;
-            case '<':
+            case '>':
                 pointer++;
                 instrIndex++;
                 break;
-            case '>':
+            case '<':
                 pointer--;
                 instrIndex++;
                 break;
@@ -62,18 +60,21 @@ function interpretBrainFuck ( program, inputArray, arrayLength) {
                 if ( array[pointer] === 0) {
                     
                 }
-
-                else {
+                else { instrIndex++;
                     
                 }
                 instrIndex++;
                 break;
             case ']':
-
+                if ( array[pointer] === 0) {
+                    instrIndex++
+                }
+                else {
+                    
+                }
                 instrIndex++;
                 break;
 
-            // default:
           }
     }
 
