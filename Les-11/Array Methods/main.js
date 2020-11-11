@@ -84,8 +84,8 @@ function makeStrings(arr) {
 // Example:
 // input: [1,2,3]
 // expected output: 6
-function totalOfNumbers(numbers,initial) {
-   return numbers + initial;
+function totalOfNumbers(result, val) {
+    return result + val;
 }
 
 function total(arr) {
@@ -97,8 +97,8 @@ function total(arr) {
 // Example:
 // input: [1,2,3]
 // expected output: '123'
-function string(numbers, initial ) {
-    return numbers.toString() + initial;
+function string(result, val ) {
+    return result.toString() + val;
 }
 
 function stringConcat(arr) {
@@ -109,44 +109,46 @@ function stringConcat(arr) {
 // Turn an array of voter objects into a count of how many people voted
 // Example:
 // input: [{name: 'Jan', age: 12, voted: false}, {name: 'An', age: 33, voted: true}, {name: 'Ben', age: 21, voted: true}]
-// expected output: 2
+// expected output: 2   
 
-// function whoVoted(person, initial) {
-//     console.log(person.whoVoted); 
-// }
+function whoVoted(result, val) {
+    if ( val.voted) {
+        result++;
+    } 
+    return result;
+}
 
-// function totalVotes(arr) {
-//     // your code here
-//     return arr.reduce(whoVoted);
-// }
+function totalVotes(arr) {
+    // your code here
+    return arr.reduce(whoVoted,0);
+}
 
 // Given an array of all your wishlist items, figure out how much it would cost to just buy everything at once
 // Example:
 // input: [{ title: "Snoep", price: 500 }, { title: "Brood", price: 200 },]
 // expected output: 700
 
-// function cost(items, initial) {
-//     console.log(items.price);    
-// }
+function cost(result, val) {
+        return result + val.price;
+}
 
-// function shoppingSpree(arr) {
-//     // your code here
-//     return arr.reduce(cost);
-// }
+function shoppingSpree(arr) {
+    // your code here
+    return arr.reduce(cost,0);
+}
 
 // Given an array of arrays, flatten them into a single array
 // Example:
 // input: [[1,2,3],[6,5,4]]
 // expected output: [1,2,3,6,5,4]
 
-function newArray (array,initial) {
-    let newArray = array + initial;
-    return newArray.concat();
+function newArray (result,val) {
+    return result.concat(val);
 }
 
 function flatten(arr) {
     // your code here
-    return arr.reduce(newArray);
+    return arr.reduce(newArray,[]);
 
 }
 

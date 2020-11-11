@@ -56,6 +56,7 @@ const solutionContainer = document.querySelector('#solution-container');
 const winOrLoseContainer = document.querySelector('#win-lose-container');
 const letterContainer = document.querySelector('#letter-container');
 let randomWord = randomWords[Math.floor(Math.random()*randomWords.length)].toUpperCase();
+console.log(randomWords.length);
 let randomWordArr = randomWord.split('');
 let containerLetters = solutionContainer.children;
 const gameState = {
@@ -128,12 +129,7 @@ function clickLetter(letter) {
     else {
       letter.target.classList.add('failed');
       gameState.hangman++;
-      hangManImage.setAttribute('src', 'images/hangman0' + gameState.hangman + '.png')
+      hangManImage.setAttribute('src', 'images/hangman0' + gameState.hangman + '.png');
     }
-  
-    
+  }
 }
-
-
-}
-
