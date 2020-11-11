@@ -1,0 +1,31 @@
+.container {
+    background-color: gray;
+    height: 500px;
+}
+
+.buttons {
+    position: absolute;
+    left: 20px;
+    background-color: transparent;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border: solid 15px;
+    border-color: transparent black transparent transparent;
+}
+
+.next-btn {
+    border-color: transparent transparent transparent black;
+    right: 20px;
+}
+
+.div-img {
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.image {
+    height: 100%;
+}
