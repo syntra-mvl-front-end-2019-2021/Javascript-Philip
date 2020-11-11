@@ -47,4 +47,4 @@ p.then((message) => {
     console.log('This is in the then ' + message);
 }).catch((message) => {
     console.log('This is in the then ' + message);
-})
+});
