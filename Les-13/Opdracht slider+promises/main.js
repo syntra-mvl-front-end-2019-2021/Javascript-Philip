@@ -23,5 +23,5 @@ let prevbtn = document.createElement('button');
 let nextbtn = document.createElement('button');
 divImg.appendChild(prevbtn);
 divImg.appendChild(nextbtn);
-prevbtn.classList.add('buttons', 'prev-btn');
-nextbtn.classList.add('buttons', 'next-btn');
+prevbtn.classList.add('prev-btn');
+nextbtn.classList.add('next-btn');
