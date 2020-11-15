@@ -5,8 +5,31 @@
 }
 
 .container {
-    background-color: gray;
-    height: 500px;
+    width: calc(100vw - 80px);
+    max-width: 1200px;
+    height: 350px;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+}
+
+.slider {
+    display: flex;
+    height: 100%;
+    width: 999999px;
+    margin: auto;
+    background-color: blue;
+    position: relative;
+}
+
+.item {
+    width: calc(min(1200px, 100vw - 80px));
+}
+
+.image {
+    width: 100%;
+    /* max-width: 375px; */
+    height: 100%;
 }
 
 .prev-btn {
@@ -15,30 +38,24 @@
     width: 20px;
     height: 20px;
     border: solid 10px;
-    border-color: transparent black transparent transparent;
+    border-color: transparent rgb(212, 19, 19) transparent transparent;
     position: absolute;
-    left: 25%;
+    left: 10%;
     top: 100px;
 }
 
 .next-btn {
     background-color: transparent;
-    border-color: transparent transparent transparent black !important;
+    border-color: transparent transparent transparent rgb(212, 19, 19) !important;
     cursor: pointer;
     width: 20px;
     height: 20px;
     border: solid 10px;
     position: absolute;
-    right: 25%;
+    right: 10%;
     top: 100px;
 }
 
-.div-img {
-    display: flex;
-    justify-content: center;
-    padding-top: 20px;
-}
-
-.image {
-    height: 200px;
+.hide {
+    display: none;
 }
