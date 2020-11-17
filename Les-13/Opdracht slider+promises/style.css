@@ -28,7 +28,8 @@
 
 .image {
     width: 100%;
-    /* max-width: 375px; */
+    max-width: width: calc(min(1200px, 100vw - 80px));
+    ;
     height: 100%;
 }
 

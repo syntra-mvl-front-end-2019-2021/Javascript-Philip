@@ -4,10 +4,6 @@ let imgArr = [
     'https://images.unsplash.com/photo-1552053831-71594a27632d?ixlib=rb-1.2.1&auto=format&fit=crop&w=612&q=80'
 ];
 
-console.log(imgArr[0]);
-console.log(imgArr[1]);
-console.log(imgArr[2]);
-
 let container = document.querySelector('.container');
 let slider = document.createElement('div');
 let item = document.createElement('div');
@@ -20,77 +16,68 @@ let sliderInfo = {
     currentSlide: 0,
 };
 
-let x = () => {
-    let arr = [];
-    for (let i = 1; i < imgArr.length; i++) {
+container.appendChild(slider);
 
-        let promise = new Promise(() => {
-            let newImg = item.cloneNode(true);
-            slider.appendChild(newImg);
-            img.setAttribute('src', imgArr[i]);
-            return arr.push(promise);
-        }
-
-        )
-    } console.log(arr);
+slider.classList.add('slider', 'hide');
+for (let i = 0; i < imgArr.length; i++) {
+    let item = document.createElement('div');
+    let img = document.createElement('img');
+    slider.appendChild(item);
+    item.classList.add('item');
+    item.appendChild(img);
+    img.classList.add('image');
+    img.src = imgArr[i];
 }
 
-Promise.all(x).then(() => {
-    createContainer();
-    // for (let i = 1; i < imgArr.length; i++) {
-    //     let newImg = item.cloneNode(true);
-    //     slider.appendChild(newImg);
-    //     img.setAttribute('src', imgArr[i]);
-    // }
+container.appendChild(prevbtn);
+container.appendChild(nextbtn);
+prevbtn.classList.add('prev-btn');
+nextbtn.classList.add('next-btn');
+
+let arrayPromises = [];
+for (let i = 0; i < imgArr.length; i++) {
+    let promises = new Promise((resolve) => {
+        resolve(img.src = imgArr[i]);
+    });
+    arrayPromises.push(promises);
+}
+
+Promise.all(arrayPromises).then(() => {
+    slider.classList.remove('hide');
 }).catch(() => {
     console.log("Loading images failed")
 })
 
-function createContainer() {
-    container.appendChild(slider);
-
-    slider.classList.add('slider');
-    slider.appendChild(item);
-
-    item.classList.add('item');
-    item.appendChild(img);
-
-    img.classList.add('image');
-    img.src = imgArr[0];
-
-    container.appendChild(prevbtn);
-    container.appendChild(nextbtn);
-    prevbtn.classList.add('prev-btn');
-    nextbtn.classList.add('next-btn');
-}
-
 function getSliderItemWidth() {
-    return item.clientWidth;
+    let itemW = document.querySelector('.item');
+    return itemW.clientWidth;
 }
 
 function getShownItems() {
-    return Math.round(slider.clientWidth / getSliderItemWidth());
+    let containerW = document.querySelector('.container');
+    return Math.round(containerW.clientWidth / getSliderItemWidth());
 }
 
 function nextSlide() {
-    const itemWidth = getSliderItemWidth();
     sliderInfo.currentSlide++;
-    sliderInfo.sliderElement.style.left =
-        -1 * sliderInfo.currentSlide * itemWidth + 'px';
-
-    // console.log(sliderInfo.currentSlide);
-    // console.log(sliderInfo.sliderElement);
-    // console.log(itemWidth);
-
+    setPosition();
 }
 
 function previousSlide() {
-    const itemWidth = getSliderItemWidth();
     sliderInfo.currentSlide--;
+    setPosition();
+}
+
+function windowResize() {
+    setPosition();
+}
+
+function setPosition() {
+    let itemWidth = getSliderItemWidth();
     sliderInfo.sliderElement.style.left =
         -1 * sliderInfo.currentSlide * itemWidth + 'px';
-
 }
 
 prevbtn.addEventListener('click', previousSlide);
 nextbtn.addEventListener('click', nextSlide);
+window.addEventListener('resize', windowResize);
