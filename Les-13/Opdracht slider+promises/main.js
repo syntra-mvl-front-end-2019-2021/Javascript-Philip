@@ -6,14 +6,16 @@ let imgArr = [
 
 let container = document.querySelector('.container');
 let slider = document.createElement('div');
-let item = document.createElement('div');
+// let item = document.createElement('div');
 let prevbtn = document.createElement('button');
+prevbtn.classList.add('hide');
 let nextbtn = document.createElement('button');
 
 let sliderInfo = {
     sliderElement: slider,
     currentSlide: 0,
 };
+console.log(sliderInfo.currentSlide);
 
 function createSlider() {
     container.appendChild(slider);
@@ -37,11 +39,23 @@ function getShownItems() {
 function nextSlide() {
     sliderInfo.currentSlide++;
     setPosition();
+    console.log(sliderInfo.currentSlide);
+    if (sliderInfo.currentSlide > 0) {
+        prevbtn.classList.remove('hide')
+    };
+
+    if (sliderInfo.currentSlide === slider.children.length - 1) {
+        nextbtn.classList.add('hide');
+    }
 }
 
 function previousSlide() {
     sliderInfo.currentSlide--;
     setPosition();
+    console.log(sliderInfo.currentSlide);
+    if (sliderInfo.currentSlide <= 0) {
+        prevbtn.classList.add('hide');
+    }
 }
 
 function windowResize() {
@@ -93,7 +107,14 @@ let promise3 = new Promise((resolve) => {
     img3.src = imgArr[2];
 });
 
-Promise.all([promise1, promise2, promise3]).then(() => {
+
+// console.log(promise1);
+// console.log(promise2);
+// console.log(promise3);
+
+
+Promise.all([promise1, promise2, promise3]).then((messages) => {
+    // console.log(messages);
     createSlider();
     slider.classList.remove('hide');
     console.log('All images have been loaded :)');
