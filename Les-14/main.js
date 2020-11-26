@@ -11,8 +11,8 @@ function writeExchangeRate(rates) {
     const $ulTag = document.createElement('ul');
     Object.keys(rates.rates).forEach(function (key) {
         const $liTag = document.createElement('li');
-        // $liTag.textContent = key + ': ' + rates.rates[key];
-        $liTag.textContent = key;
+        $liTag.textContent = key + ': ' + rates.rates[key];
+        // $liTag.textContent = key;
         $ulTag.append($liTag);
     })
 
