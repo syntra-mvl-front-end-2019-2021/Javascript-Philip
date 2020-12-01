@@ -1,40 +1,34 @@
-let baseUrl = 'https://api.exchangeratesapi.io/';
+let firstSelect = document.querySelector('.first-select');
+let secondSelect = document.querySelector('.second-select');
 
-let rates = fetch(baseUrl + 'latest', {
-    method: 'GET'
-});
+let firstInput = document.querySelector('.input-1');
+let secondInput = document.querySelector('.input-2');
 
-rates.then(function (response) {
-    console.log(response);
-    if (!response.ok) {
-        throw new Error('Fetch failed');
-    }
-    return response.json();
-}).then(function (jsonData) {
-    console.log(jsonData);
-    insertInPage(jsonData);
-}).catch(function (error) {
-    console.log(error);
-})
 
-function insertInPage(rates) {
+function chooseCurr() {
+    let baseUrl = 'https://api.exchangeratesapi.io/';
+    let firstCurr = firstSelect.value;
+    let secondCurr = secondSelect.value;
 
-    let eur = document.querySelector('.eur');
-    let usd = document.querySelector('.usd');
+    let rates = fetch(baseUrl + 'latest', {
+        method: 'GET'
+    });
 
-    let inputEur = document.querySelector('.input-eur');
-    let inputUsd = document.querySelector('.input-usd');
-
-    function chooseEur1() {
-        inputEur.value = 1;
-
-        let val = Object.values(rates);
-        console.log(val);
-        // if (val)
-        //     inputUsd.value = Object.values(rates.rates);
-    }
-
-    eur.addEventListener('click', chooseEur1);
+    rates.then(function (response) {
+        console.log(response);
+        if (!response.ok) {
+            throw new Error('Fetch failed');
+        }
+        let x = response.json();
+        return x;
+    }).then(function (x) {
+        console.log(x);
+        firstInputVal = 1;
+        secondInput.value = x.rates[secondCurr];
+    }).catch(function (error) {
+        console.log(error);
+    })
 }
-
-
+chooseCurr()
+// firstSelect.addEventListener('change', chooseCurr);
+secondSelect.addEventListener('change', chooseCurr);

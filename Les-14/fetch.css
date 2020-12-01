@@ -1,11 +1,31 @@
+body {
+    background-color: coral;
+}
+
 .container {
     display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: auto;
 }
 
-.btn {
-    margin-top: 150px;
+.date {
+    display: flex;
+    flex-direction: column;
 }
 
-.choose-1 {
-    margin-right: 50px;
+.currencies {
+    display: flex;
+    margin-top: 32px;
+}
+
+.choose {
+    width: 50%;
+}
+
+.select, .input {
+    width: 150px;
+    border-radius: 5px;
+    border: solid;
+    margin-bottom: 16px;
 }

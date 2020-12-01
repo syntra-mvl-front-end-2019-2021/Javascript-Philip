@@ -1,4 +1,4 @@
-<!doctype html>
+<!-- <!doctype html>
 <html lang="en">
 
 <head>
@@ -28,11 +28,11 @@
     <script src="fetch.js"></script>
 </body>
 
-</html>
+</html> -->
 
 
 
-<!-- <!doctype html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -46,32 +46,63 @@
 
 <body>
     <div class="container">
-        <div class="choose choose-1">
-            <label>
-                <select>
-                    <option disabled selected>Choose</option>
-                    <option class="eur-1">EUR</option>
-                    <option class="usd-1">USD</option>
-                </select>
-            </label>
-            <input class="input-1" type="text" placeholder="0">
-        </div>
-        <div class="choose choose-2">
-            <label>
-                <select>
-                    <option disabled selected>Choose</option>
-                    <option class="eur-2">EUR</option>
-                    <option class="usd-2">USD</option>
-                </select>
-            </label>
-            <input class="input-2" type="text" placeholder="0">
+        <div class="date">
+            <input disabled class="input" value="Choose currency date"></input>
+            <input type="date" class="input" value="04/11/2019">
 
         </div>
-    </div>
-    <div class="btn">
-        <button>Submit</button>
+        <div class="currencies">
+            <div class="choose choose-1">
+                <input class="select first-select" value="EUR" disabled>
+                </input>
+
+                <input class="input input-1" type="text" value="1" disabled>
+            </div>
+            <div class="choose choose-2">
+                <label>
+                    <select class="select second-select">
+                        <option disabled>Choose currency</option>
+                        <option value="USD" selected>USD</option>
+                        <option value="GBP">GBP</option>
+                        <option value="NOK">NOK</option>
+                        <option value="CAD">CAD</option>
+                        <option value="HKD">HKD</option>
+                        <option value="CHF">CHF</option>
+                        <option value="AUD">AUD</option>
+                        <option value="JPY">JPY</option>
+                        <option value="ISK">ISK</option>
+                        <option value="PHP">PHP</option>
+                        <option value="DKK">DKK</option>
+                        <option value="HUF">HUF</option>
+                        <option value="CZK">CZK</option>
+                        <option value="RON">RON</option>
+                        <option value="SEK">SEK</option>
+                        <option value="IDR">IDR</option>
+                        <option value="INR">INR</option>
+                        <option value="BRL">BRL</option>
+                        <option value="RUB">RUB</option>
+                        <option value="HRK">HRK</option>
+                        <option value="THB">THB</option>
+                        <option value="SGD">SGD</option>
+                        <option value="PLN">PLN</option>
+                        <option value="BGN">BGN</option>
+                        <option value="TRY">TRY</option>
+                        <option value="CNY">CNY</option>
+                        <option value="NZD">NZD</option>
+                        <option value="ZAR">ZAR</option>
+                        <option value="MXN">MXN</option>
+                        <option value="ILS">ILS</option>
+                        <option value="KRW">KRW</option>
+                        <option value="MYR">MYR</option>
+
+                    </select>
+                </label>
+                <input class="input input-2" type="text" placeholder="0">
+
+            </div>
+        </div>
     </div>
     <script src="fetch.js"></script>
 </body>
 
-</html> -->
+</html>
