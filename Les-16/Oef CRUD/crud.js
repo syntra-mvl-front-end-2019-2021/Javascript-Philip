@@ -35,5 +35,5 @@ function fetchAllTodos() {
         });
 }
 
-// fetchAllTodos();
+fetchAllTodos();
 document.forms.todoform.addEventListener('submit', fetchAllTodos);
