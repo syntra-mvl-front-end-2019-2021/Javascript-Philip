@@ -214,11 +214,18 @@ function submitTodoForm(event) {
     event.preventDefault();
     const id = $todoForm.elements.id.value;
     const body = todoItemFromForm();
+    const description = $todoForm.elements.description.value;
 
-    if (id) {
-        updateTodo(id, body);
-    } else {
-        postNewTodo(body);
+    if (description === "") {
+        alert('please fill in this field.')
+    }
+
+    else {
+        if (id) {
+            updateTodo(id, body);
+        } else {
+            postNewTodo(body);
+        }
     }
 }
 
