@@ -6,7 +6,9 @@
 const $listContainer = document.getElementById('list-container');
 const $formModal = document.getElementById('form-modal');
 const $addBtn = document.getElementById('add-btn');
-const $todoForm = document.forms['todo-form'];
+const todoForm = document.forms['todo-form'];
+
+let allTodoItems = {};
 
 function printTodoList(todoItems, clear) {
 
@@ -32,6 +34,17 @@ function printTodoList(todoItems, clear) {
     $listContainer.insertAdjacentHTML('beforeend', $todoItems);
 }
 
+function saveTodoList(todoItems, clear) {
+    if (clear) {
+        allTodoItems = {};
+    }
+    todoItems.forEach(function (item) {
+        allTodoItems[item.id] = item;
+        console.log(item);
+    });
+
+}
+
 
 
 function fetchAllTodos() {
@@ -51,7 +64,7 @@ function fetchAllTodos() {
             return result.json();
         })
         .then(function (result) {
-            // printTodoList(result.data, true);
+            saveTodoList(result.data);
             printTodoList(result.data, true);
 
             // console.log(result);
@@ -86,8 +99,8 @@ function postNewTodo(body) {
         })
         .then(function (result) {
             console.log(result);
-            // fetchAllTodos();
-            // $todoForm.reset();
+            fetchAllTodos();
+            todoForm.reset();
         })
         .catch(function (error) {
             console.error(error);
@@ -117,8 +130,8 @@ function updateTodo(id, body) {
         })
         .then(function (result) {
             console.log(result);
-            // fetchAllTodos();
-            // $todoForm.reset();
+            fetchAllTodos();
+            todoForm.reset();
         })
         .catch(function (error) {
             console.error(error);
@@ -159,9 +172,57 @@ function listContainerClick(event) {
     }
 }
 
+function openModal(item) {
+    $formModal.classList.add('modal__background--active');
+
+    if (item) {
+        todoForm.elements.id.value = item.id;
+        todoForm.elements.done.checked = item.done;
+        todoForm.elements.description.value = item.description;
+    }
+}
+
+function closeModal() {
+    $formModal.classList.remove('loading');
+    todoForm.elements.id.value = '';
+    $formModal.classList.remove('modal__background--active');
+}
+
+function todoItemFromForm() {
+    return {
+        done: todoForm.elements.done.checked,
+        description: todoForm.elements.description.value,
+    };
+}
+
+function submitForm(event) {
+    event.preventDefault();
+    const id = todoForm.elements.id.value;
+    const body = todoItemFromForm();
+    const description = todoForm.elements.description.value;
+
+    if (description === "") {
+        alert('Please fill in the Description field.')
+    }
+
+    else {
+        if (id) {
+            updateTodo(id, body);
+        } else {
+            postNewTodo(body);
+        }
+    }
+}
+
+function clickAdd() {
+    openModal();
+}
+
 function clickUpdate(event) {
     const $listItem = event.target.closest('.list-item');
     const id = parseInt($listItem.dataset.id);
+
+    openModal(allTodoItems[id]);
 }
 
 function clickDelete(event) {
@@ -174,9 +235,9 @@ function clickDelete(event) {
 fetchAllTodos();
 
 $listContainer.addEventListener('click', listContainerClick);
-// $addBtn.addEventListener('click', addBtnClick);
-// $todoForm.addEventListener('reset', closeModal);
-// $todoForm.addEventListener('submit', submitTodoForm);
+$addBtn.addEventListener('click', clickAdd);
+todoForm.addEventListener('reset', closeModal);
+todoForm.addEventListener('submit', submitForm);
 
 
 // function submitTodoForm(event) {
