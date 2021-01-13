@@ -1,0 +1,41 @@
+body {
+    background-color: lightblue;
+}
+
+#vue-app {
+    width: 50%;
+    margin: auto;
+}
+
+.screen {
+    width: 100%;
+    border-radius: 0.6rem;
+    border: 0.2rem solid palevioletred;
+    margin-bottom: 1rem;
+    background-color: white;
+}
+
+.screen__line-one, .screen__line-two {
+    height: 2rem;
+}
+
+button {
+    width: 3rem;
+    height: 3rem;
+    border: 2px solid black;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.6rem;
+}
+
+.buttons {
+    width: 100%;
+    border-radius: 0.6rem;
+    border: 0.2rem solid palevioletred;
+    margin: auto;
+    padding: 1rem 0rem 0.5rem 0rem;
+}
+
+.buttons__numbers, .buttons__math {
+    padding-left: 6%;
+}
