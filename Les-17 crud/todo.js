@@ -1,12 +1,13 @@
 // Extra Tasks:
-// No submit with empty description
-// Error handling
-// Do not reload whole list after update, create, delete
+// [x] No submit with empty description
+// [x] Error handling
+// [x] Do not reload whole list after update, create, delete
 
 const $listContainer = document.getElementById('list-container');
 const $formModal = document.getElementById('form-modal');
 const $addBtn = document.getElementById('add-btn');
 const $todoForm = document.forms['todo-form'];
+const $errorMessage = document.getElementById('modal-error');
 
 let allTodoItems = {};
 
@@ -25,9 +26,6 @@ function printTodos(todoItems, clear) {
           <button class="list-item__delete">Delete</button>
         </div>
       </div>`;
-
-        console.log(todoItem);
-        console.log(todoItem.description);
     });
 
     $listContainer.insertAdjacentHTML('beforeend', $todoItems);
@@ -62,14 +60,11 @@ function fetchAllTodos() {
         .then(function (result) {
             saveTodoList(result.data);
             printTodos(result.data, true);
-
-            console.log(result);
-            console.log(result.data);
-
             $listContainer.classList.remove('loading');
         })
         .catch(function (error) {
             console.error(error);
+            $formModal.classList.remove('loading');
             $listContainer.classList.remove('loading');
         });
 }
@@ -94,11 +89,14 @@ function postNewTodo(body) {
         })
         .then(function (result) {
             console.log(result);
-            fetchAllTodos();
+            saveTodoList([result.data], false);
+            printTodos([result.data], false);
             $todoForm.reset();
         })
         .catch(function (error) {
             console.error(error);
+            $formModal.classList.remove('loading');
+            showErrorMessage(error.message);
         });
 }
 
@@ -125,11 +123,15 @@ function updateTodo(id, body) {
         })
         .then(function (result) {
             console.log(result);
-            fetchAllTodos();
+            allTodoItems[result.data.id] = result.data;
+            console.log(allTodoItems);
+            printTodos(Object.values(allTodoItems), true);
             $todoForm.reset();
         })
         .catch(function (error) {
             console.error(error);
+            $formModal.classList.remove('loading');
+            showErrorMessage(error.message);
         });
 }
 
@@ -150,10 +152,12 @@ function deleteTodo(id) {
                 throw new Error('No luck');
             }
 
-            fetchAllTodos();
+            document.querySelector(`[data-id="${id}"]`).remove();
+            $listContainer.classList.remove('loading');
         })
         .catch(function (error) {
             console.error(error);
+            $formModal.classList.remove('loading');
         });
 }
 
@@ -206,10 +210,24 @@ function todoItemFromForm() {
     };
 }
 
+function showErrorMessage(message) {
+    $errorMessage.textContent = message;
+}
+
+function emptyErrorMessage() {
+    showErrorMessage('');
+}
+
 function submitTodoForm(event) {
     event.preventDefault();
+    emptyErrorMessage();
     const id = $todoForm.elements.id.value;
     const body = todoItemFromForm();
+
+    if (!body.description) {
+        showErrorMessage('Please enter a description');
+        return;
+    }
 
     if (id) {
         updateTodo(id, body);

@@ -1,36 +1,33 @@
 // Extra Tasks:
-// No submit with empty description
-// Error handling
-// Do not reload whole list after update, create, delete
+// [x] No submit with empty description
+// [x] Error handling
+// [x] Do not reload whole list after update, create, delete
 
 const $listContainer = document.getElementById('list-container');
 const $formModal = document.getElementById('form-modal');
 const $addBtn = document.getElementById('add-btn');
-const todoForm = document.forms['todo-form'];
+const $todoForm = document.forms['todo-form'];
+const $errorMessage = document.getElementById('modal-error');
 
 let allTodoItems = {};
 
-function printTodoList(todoItems, clear) {
-
+function printTodos(todoItems, clear) {
     if (clear) {
         $listContainer.innerHTML = '';
     }
-
     let $todoItems = '';
-    console.log($todoItems);
 
-    todoItems.forEach(function (item) {
-        $todoItems += `<div data-id = "${item.id}" class="list-item ${item.done ? 'list-item--done' : ''
+    todoItems.forEach(function (todoItem) {
+        $todoItems += `<div data-id="${todoItem.id}" class="list-item ${todoItem.done ? 'list-item--done' : ''
             }">
-    <p class="list-item__description">${item.description}</p>
-    <div class="list-item__actions">
-        <button class="list-item__update">Update</button>
-        <button class="list-item__delete">Delete</button>
-    </div>
-</div>`;
-        // console.log(todoItems);
-        // console.log(item);
+        <p class="list-item__description">${todoItem.description}</p>
+        <div class="list-item__actions">
+          <button class="list-item__update">Update</button>
+          <button class="list-item__delete">Delete</button>
+        </div>
+      </div>`;
     });
+
     $listContainer.insertAdjacentHTML('beforeend', $todoItems);
 }
 
@@ -38,14 +35,11 @@ function saveTodoList(todoItems, clear) {
     if (clear) {
         allTodoItems = {};
     }
-    todoItems.forEach(function (item) {
-        allTodoItems[item.id] = item;
-        console.log(item);
+
+    todoItems.forEach(function (todoItem) {
+        allTodoItems[todoItem.id] = todoItem;
     });
-
 }
-
-
 
 function fetchAllTodos() {
     $listContainer.classList.add('loading');
@@ -65,16 +59,12 @@ function fetchAllTodos() {
         })
         .then(function (result) {
             saveTodoList(result.data);
-            printTodoList(result.data, true);
-
-            // console.log(result);
-            // console.log(result.data);
-            // console.log(result.data[0].id);
-
+            printTodos(result.data, true);
             $listContainer.classList.remove('loading');
         })
         .catch(function (error) {
             console.error(error);
+            $formModal.classList.remove('loading');
             $listContainer.classList.remove('loading');
         });
 }
@@ -99,11 +89,14 @@ function postNewTodo(body) {
         })
         .then(function (result) {
             console.log(result);
-            fetchAllTodos();
-            todoForm.reset();
+            saveTodoList([result.data], false);
+            printTodos([result.data], false);
+            $todoForm.reset();
         })
         .catch(function (error) {
             console.error(error);
+            $formModal.classList.remove('loading');
+            showErrorMessage(error.message);
         });
 }
 
@@ -130,11 +123,15 @@ function updateTodo(id, body) {
         })
         .then(function (result) {
             console.log(result);
-            fetchAllTodos();
-            todoForm.reset();
+            allTodoItems[result.data.id] = result.data;
+            console.log(allTodoItems);
+            printTodos(Object.values(allTodoItems), true);
+            $todoForm.reset();
         })
         .catch(function (error) {
             console.error(error);
+            $formModal.classList.remove('loading');
+            showErrorMessage(error.message);
         });
 }
 
@@ -155,106 +152,97 @@ function deleteTodo(id) {
                 throw new Error('No luck');
             }
 
-            fetchAllTodos();
+            document.querySelector(`[data-id="${id}"]`).remove();
+            $listContainer.classList.remove('loading');
         })
         .catch(function (error) {
             console.error(error);
+            $formModal.classList.remove('loading');
         });
 }
 
-function listContainerClick(event) {
-    if (event.target.matches('.list-item__update')) {
-        clickUpdate(event);
-    }
+function openModal(todoItem) {
+    const todoForm = $todoForm;
 
-    if (event.target.matches('.list-item__delete')) {
-        clickDelete(event);
-    }
-}
-
-function openModal(item) {
     $formModal.classList.add('modal__background--active');
 
-    if (item) {
-        todoForm.elements.id.value = item.id;
-        todoForm.elements.done.checked = item.done;
-        todoForm.elements.description.value = item.description;
+    if (todoItem) {
+        todoForm.elements.id.value = todoItem.id;
+        todoForm.elements.done.checked = todoItem.done;
+        todoForm.elements.description.value = todoItem.description;
     }
 }
 
 function closeModal() {
     $formModal.classList.remove('loading');
-    todoForm.elements.id.value = '';
+    $todoForm.elements.id.value = '';
     $formModal.classList.remove('modal__background--active');
 }
 
-function todoItemFromForm() {
-    return {
-        done: todoForm.elements.done.checked,
-        description: todoForm.elements.description.value,
-    };
+function deleteBtnClick(event) {
+    const $listItem = event.target.closest('.list-item');
+    const id = parseInt($listItem.dataset.id);
+    deleteTodo(id);
 }
 
-function submitForm(event) {
-    event.preventDefault();
-    const id = todoForm.elements.id.value;
-    const body = todoItemFromForm();
-    const description = todoForm.elements.description.value;
-
-    if (description === "") {
-        alert('Please fill in the Description field.')
-    }
-
-    else {
-        if (id) {
-            updateTodo(id, body);
-        } else {
-            postNewTodo(body);
-        }
-    }
-}
-
-function clickAdd() {
-    openModal();
-}
-
-function clickUpdate(event) {
+function updateBtnClick(event) {
     const $listItem = event.target.closest('.list-item');
     const id = parseInt($listItem.dataset.id);
 
     openModal(allTodoItems[id]);
 }
 
-function clickDelete(event) {
-    const $listItem = event.target.closest('.list-item');
-    const id = parseInt($listItem.dataset.id);
-    deleteTodo(id);
+function listContainerClick(event) {
+    if (event.target.matches('.list-item__delete')) {
+        deleteBtnClick(event);
+    }
 
+    if (event.target.matches('.list-item__update')) {
+        updateBtnClick(event);
+    }
+}
+
+function todoItemFromForm() {
+    const todoForm = $todoForm;
+    return {
+        done: todoForm.elements.done.checked,
+        description: todoForm.elements.description.value,
+    };
+}
+
+function showErrorMessage(message) {
+    $errorMessage.textContent = message;
+}
+
+function emptyErrorMessage() {
+    showErrorMessage('');
+}
+
+function submitTodoForm(event) {
+    event.preventDefault();
+    emptyErrorMessage();
+    const id = $todoForm.elements.id.value;
+    const body = todoItemFromForm();
+
+    if (!body.description) {
+        showErrorMessage('Please enter a description');
+        return;
+    }
+
+    if (id) {
+        updateTodo(id, body);
+    } else {
+        postNewTodo(body);
+    }
+}
+
+function addBtnClick() {
+    openModal();
 }
 
 fetchAllTodos();
 
 $listContainer.addEventListener('click', listContainerClick);
-$addBtn.addEventListener('click', clickAdd);
-todoForm.addEventListener('reset', closeModal);
-todoForm.addEventListener('submit', submitForm);
-
-
-// function submitTodoForm(event) {
-//     event.preventDefault();
-//     const id = $todoForm.elements.id.value;
-//     const body = todoItemFromForm();
-//     const description = $todoForm.elements.description.value;
-
-//     if (description === "") {
-//         alert('Please fill in the Description field.')
-//     }
-
-//     else {
-//         if (id) {
-//             updateTodo(id, body);
-//         } else {
-//             postNewTodo(body);
-//         }
-//     }
-// }
+$addBtn.addEventListener('click', addBtnClick);
+$todoForm.addEventListener('reset', closeModal);
+$todoForm.addEventListener('submit', submitTodoForm);

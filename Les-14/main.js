@@ -33,8 +33,10 @@ latest.then(function (response) {
     }
 
     return response.json();
+    // console.log(response.json());
 }).then(function (jsonData) {
     console.log(jsonData);
+    console.log(JSON.stringify(jsonData));
     writeExchangeRate(jsonData);
 }).catch(function (error) {
     console.log(error);

@@ -99,6 +99,11 @@
     display: flex;
 }
 
+.modal__error-message {
+    color: indianred;
+    padding-bottom: 1rem;
+}
+
 label {
     display: block;
     padding: 0.5rem 0;
