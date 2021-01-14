@@ -4,6 +4,12 @@ const App = {
             lineOne: null,
             lineTwo: null,
             symbol: '',
+            history: {
+                first: '',
+                sym: '',
+                second: '',
+            },
+            showHistory: true,
         };
     },
     methods: {
@@ -13,10 +19,7 @@ const App = {
                 this.lineTwo = number;
                 return;
             }
-
             this.lineTwo = parseInt('' + this.lineTwo + number);
-            // this.lineTwo = parseInt(this.lineTwo + '' + number);
-            console.log(this.lineTwo);
         },
         sum() {
             return this.lineOne + this.lineTwo;
@@ -31,15 +34,18 @@ const App = {
             return this.lineOne / this.lineTwo;
 
         },
+        power() {
+            return this.lineOne * this.lineOne;
+        },
         calculate() {
 
-            if (
-                this.lineOne === null ||
-                this.lineTwo === null ||
-                this.symbol === ''
-            ) {
-                return;
-            }
+            // if (
+            //     this.lineOne === null ||
+            //     this.lineTwo === null ||
+            //     this.symbol === ''
+            // ) {
+            //     return;
+            // }
 
             switch (this.symbol) {
                 case '+':
@@ -54,18 +60,31 @@ const App = {
                 case '/':
                     this.lineTwo = this.divide();
                     break;
+                case '²':
+                    this.lineTwo = this.power();
+                    break;
 
             }
-            console.log(this.lineTwo);
+            this.history.first = this.lineTwo;
+            console.log(this.history.first);
+            this.history.second = this.lineTwo;
+            console.log(this.history.second);
+
             this.lineOne = null;
             this.symbol = '';
         },
         selectSymbol(symbol) {
             console.log(symbol);
-            // this.calculate();
+            this.calculate();
 
             this.lineOne = this.lineTwo;
             this.symbol = symbol;
+            this.history.sym = this.symbol;
+            this.lineTwo = null;
+        },
+        reset() {
+            this.showHistory = false;
+            this.lineOne = null;
             this.lineTwo = null;
         },
     },
@@ -77,9 +96,9 @@ const App = {
  * [x] minus
  * [x] divide
  * [ ] root
- * [ ] power
+ * [x] power
  * [ ] backspace
- * [ ] clear
+ * [x] clear
  * [ ] history
  ** [ ] make line two input field
  */

@@ -69,8 +69,15 @@
                 <button class="buttons__math-item" @click="selectSymbol('√')">
                     √
                 </button>
+                <button class="buttons__math-item" @click="reset">
+                    C
+                </button>
                 <button class="buttons__math-item-sol" @click="calculate">=</button>
             </div>
+        </div>
+        <div :class="{'history' : showHistory}">
+            <p>{{ history.first + history.sym + history.second + '=' }}</p>
+
         </div>
     </div>
 

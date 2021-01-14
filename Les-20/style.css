@@ -39,3 +39,7 @@ button {
 .buttons__numbers, .buttons__math {
     padding-left: 6%;
 }
+
+.history {
+    display: none;
+}
