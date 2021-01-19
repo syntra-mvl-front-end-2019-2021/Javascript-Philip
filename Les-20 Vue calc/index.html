@@ -75,8 +75,10 @@
                 <button class="buttons__math-item-sol" @click="calculate">=</button>
             </div>
         </div>
-        <div :class="{'history' : showHistory}">
-            <p>{{ history.first + history.sym + history.second + '=' }}</p>
+        <div>
+            <p v-for="calculations in calcArr">
+                {{ calculations }}
+            </p>
 
         </div>
     </div>

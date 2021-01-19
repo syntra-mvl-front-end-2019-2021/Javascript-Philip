@@ -4,12 +4,9 @@ const App = {
             lineOne: null,
             lineTwo: null,
             symbol: '',
-            history: {
-                first: '',
-                sym: '',
-                second: '',
-            },
-            showHistory: true,
+            calculation: [],
+            newCalc: '',
+            calcArr: [],
         };
     },
     methods: {
@@ -39,13 +36,15 @@ const App = {
         },
         calculate() {
 
-            // if (
-            //     this.lineOne === null ||
-            //     this.lineTwo === null ||
-            //     this.symbol === ''
-            // ) {
-            //     return;
-            // }
+            if (
+                this.lineOne === null ||
+                this.lineTwo === null ||
+                this.symbol === ''
+            ) {
+                return;
+            }
+            this.calculation.push(this.lineTwo);
+            console.log(this.calculation);
 
             switch (this.symbol) {
                 case '+':
@@ -65,30 +64,46 @@ const App = {
                     break;
 
             }
-            this.history.first = this.lineTwo;
-            console.log(this.history.first);
-            this.history.second = this.lineTwo;
-            console.log(this.history.second);
+            this.calculation.push('=');
+
+            this.calculation.push(this.lineTwo);
+            console.log(this.calculation);
+
+            this.newCalc = this.calculation.join('');
+            console.log(this.newCalc);
 
             this.lineOne = null;
             this.symbol = '';
         },
         selectSymbol(symbol) {
-            console.log(symbol);
+
+            this.calculation.push(this.lineTwo);
+            console.log(this.calculation);
+
+            this.calculation.push(symbol);
+            console.log(this.calculation);
+
             this.calculate();
 
             this.lineOne = this.lineTwo;
             this.symbol = symbol;
-            this.history.sym = this.symbol;
             this.lineTwo = null;
         },
         reset() {
-            this.showHistory = false;
             this.lineOne = null;
             this.lineTwo = null;
+
+            this.calcArr.push(this.newCalc);
+
+            this.calculation = [];
+            this.newCalc = '';
+
+            console.log(this.calcArr);
+            console.log(this.calcArr.join());
         },
     },
 };
+
 
 /**
  * [x] styling
