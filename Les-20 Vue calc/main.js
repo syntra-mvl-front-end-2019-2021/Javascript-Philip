@@ -46,6 +46,10 @@ const App = {
             this.calculation.push(this.lineTwo);
             console.log(this.calculation);
 
+            // if (this.selectSymbol) {
+            //     return;
+            // }
+
             switch (this.symbol) {
                 case '+':
                     this.lineTwo = this.sum();
@@ -76,6 +80,17 @@ const App = {
             this.symbol = '';
         },
         selectSymbol(symbol) {
+            if (this.lineOne !== null && this.lineTwo !== null) {
+
+                this.calculation.push(this.lineTwo);
+                console.log(this.calculation);
+                this.calculation.push(symbol);
+                console.log(this.calculation);
+
+                this.lineOne = this.lineTwo;
+                this.lineTwo = null;
+                return;
+            }
 
             this.calculation.push(this.lineTwo);
             console.log(this.calculation);
