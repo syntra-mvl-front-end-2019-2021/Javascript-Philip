@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header />
     <!-- Banner -->
     <section id="banner">
       <div class="inner">
@@ -32,96 +31,13 @@
           </p>
         </header>
         <div class="highlights">
-          <!--        <Highlight-->
-          <!--          icon="fa-vcard-o"-->
-          <!--          title="Feugiat consequat"-->
-          <!--          text="Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus."-->
-          <!--        />-->
-          <Highlight icon="icon fa-vcard-o" title="Feugiat consequat" />
-          <section>
-            <div class="content">
-              <header>
-                <a href="#" class="icon fa-vcard-o"
-                  ><span class="label">Icon</span></a
-                >
-                <h3>Feugiat consequat</h3>
-              </header>
-              <p>
-                Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing
-                gravida odio porttitor sem non mi integer non faucibus.
-              </p>
-            </div>
-          </section>
-          <section>
-            <div class="content">
-              <header>
-                <a href="#" class="icon fa-files-o"
-                  ><span class="label">Icon</span></a
-                >
-                <h3>Ante sem integer</h3>
-              </header>
-              <p>
-                Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing
-                gravida odio porttitor sem non mi integer non faucibus.
-              </p>
-            </div>
-          </section>
-          <section>
-            <div class="content">
-              <header>
-                <a href="#" class="icon fa-floppy-o"
-                  ><span class="label">Icon</span></a
-                >
-                <h3>Ipsum consequat</h3>
-              </header>
-              <p>
-                Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing
-                gravida odio porttitor sem non mi integer non faucibus.
-              </p>
-            </div>
-          </section>
-          <section>
-            <div class="content">
-              <header>
-                <a href="#" class="icon fa-line-chart"
-                  ><span class="label">Icon</span></a
-                >
-                <h3>Interdum gravida</h3>
-              </header>
-              <p>
-                Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing
-                gravida odio porttitor sem non mi integer non faucibus.
-              </p>
-            </div>
-          </section>
-          <section>
-            <div class="content">
-              <header>
-                <a href="#" class="icon fa-paper-plane-o"
-                  ><span class="label">Icon</span></a
-                >
-                <h3>Faucibus consequat</h3>
-              </header>
-              <p>
-                Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing
-                gravida odio porttitor sem non mi integer non faucibus.
-              </p>
-            </div>
-          </section>
-          <section>
-            <div class="content">
-              <header>
-                <a href="#" class="icon fa-qrcode"
-                  ><span class="label">Icon</span></a
-                >
-                <h3>Accumsan viverra</h3>
-              </header>
-              <p>
-                Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing
-                gravida odio porttitor sem non mi integer non faucibus.
-              </p>
-            </div>
-          </section>
+          <Highlight
+            v-for="highlight of highlights"
+            :key="highlight.iconClass"
+            :icon-class="highlight.iconClass"
+            :title="highlight.title"
+            :text="highlight.text"
+          />
         </div>
       </div>
     </section>
@@ -266,11 +182,52 @@
 </template>
 
 <script>
-import Header from '@/components/Header';
-import Highlight from '@/components/Highlight';
+import Highlight from "@/components/Highlight";
 export default {
-  name: 'App',
-  components: { Header, Highlight },
+  name: "Index",
+  components: { Highlight },
+  data() {
+    return {
+      highlights: [
+        {
+          inconClass: "fa-vcard-o",
+          title: "Feugiat consequat",
+          text:
+            "Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus.",
+        },
+        {
+          inconClass: "fa-files-o",
+          title: "Ante sem integer",
+          text:
+            "Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus.",
+        },
+        {
+          inconClass: "fa-floppy-o",
+          title: "Ipsum consequat",
+          text:
+            "Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus.",
+        },
+        {
+          inconClass: "fa-line-chart",
+          title: "Interdum gravida",
+          text:
+            "Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus.",
+        },
+        {
+          inconClass: "fa-paper-plane-o",
+          title: "Faucibus consequat",
+          text:
+            "Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus.",
+        },
+        {
+          inconClass: "fa-qrcode",
+          title: "Accumsan viverra",
+          text:
+            "Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus.",
+        },
+      ],
+    };
+  },
 };
 </script>
 

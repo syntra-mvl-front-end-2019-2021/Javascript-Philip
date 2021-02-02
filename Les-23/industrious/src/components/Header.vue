@@ -9,12 +9,12 @@
 
     <nav id="menu" :class="{ show: isMenuOpen }">
       <ul class="links">
-        <li><a href="#">Home</a></li>
-        <li>
-          <a href="#">Elements</a>
-        </li>
-        <li>
-          <a href="#">Generic</a>
+        <li
+          v-for="link in links"
+          :key="link.path"
+          :class="{ active: $route.path === link.path }"
+        >
+          <router-link :to="link.path">{{ link.label }}</router-link>
         </li>
         <a href="#" class="close" @click="closeMenu" />
       </ul>
@@ -24,10 +24,24 @@
 
 <script>
 export default {
-  name: 'Header',
+  name: "Header",
   data() {
     return {
       isMenuOpen: false,
+      links: [
+        {
+          label: "Home",
+          path: "/",
+        },
+        {
+          label: "Generic",
+          path: "/generic",
+        },
+        {
+          label: "Element",
+          path: "/element",
+        },
+      ],
     };
   },
   methods: {
@@ -41,4 +55,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.active {
+  font-weight: bold;
+  color: goldenrod;
+}
+</style>
