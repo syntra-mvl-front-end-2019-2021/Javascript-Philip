@@ -70,60 +70,13 @@
           </p>
         </header>
         <div class="testimonials">
-          <section>
-            <div class="content">
-              <blockquote>
-                <p>
-                  Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing
-                  gravida odio porttitor sem non mi integer non faucibus.
-                </p>
-              </blockquote>
-              <div class="author">
-                <div class="image">
-                  <img src="@/assets/images/pic01.jpg" alt="" />
-                </div>
-                <p class="credit">
-                  - <strong>Jane Doe</strong> <span>CEO - ABC Inc.</span>
-                </p>
-              </div>
-            </div>
-          </section>
-          <section>
-            <div class="content">
-              <blockquote>
-                <p>
-                  Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing
-                  gravida odio porttitor sem non mi integer non faucibus.
-                </p>
-              </blockquote>
-              <div class="author">
-                <div class="image">
-                  <img src="@/assets/images/pic03.jpg" alt="" />
-                </div>
-                <p class="credit">
-                  - <strong>John Doe</strong> <span>CEO - ABC Inc.</span>
-                </p>
-              </div>
-            </div>
-          </section>
-          <section>
-            <div class="content">
-              <blockquote>
-                <p>
-                  Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing
-                  gravida odio porttitor sem non mi integer non faucibus.
-                </p>
-              </blockquote>
-              <div class="author">
-                <div class="image">
-                  <img src="@/assets/images/pic02.jpg" alt="" />
-                </div>
-                <p class="credit">
-                  - <strong>Janet Smith</strong> <span>CEO - ABC Inc.</span>
-                </p>
-              </div>
-            </div>
-          </section>
+          <Review
+            v-for="review in reviews"
+            :key="review.index"
+            :text="review.text"
+            :src="review.src"
+            :name="review.name"
+          />
         </div>
       </div>
     </section>
@@ -183,9 +136,10 @@
 
 <script>
 import Highlight from "@/components/Highlight";
+import Review from "@/components/Review";
 export default {
   name: "Index",
-  components: { Highlight },
+  components: { Highlight, Review },
   data() {
     return {
       highlights: [
@@ -224,6 +178,26 @@ export default {
           title: "Accumsan viverra",
           text:
             "Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus.",
+        },
+      ],
+      reviews: [
+        {
+          text:
+            "Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus.",
+          src: "pic01.jpg",
+          name: "Jane Doe",
+        },
+        {
+          text:
+            "Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus.",
+          src: "pic03.jpg",
+          name: "John Doe",
+        },
+        {
+          text:
+            "Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus.",
+          src: "pic02.jpg",
+          name: "Janet Smith",
         },
       ],
     };
